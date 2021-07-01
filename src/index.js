@@ -1,19 +1,37 @@
 document.addEventListener("DOMContentLoaded", () => {
-
-const newTaskForm = document.getElementById("create-task-form")
-
-
-newTaskForm.addEventListener("submit", createNewTask)
+  const newTaskForm = document.getElementById("create-task-form")
+  newTaskForm.addEventListener("submit", createNewTask)
 })
 
-function createNewTask(event){
-  const newTaskDescription = document.getElementById("new-task-description")
+
+
+function createNewTask(e){
+  e.preventDefault()
+  const newTask = document.getElementById("new-task-description")
   const newTaskLi = document.createElement("li")
-  newTaskLi.innerText = newTaskDescription.value
-  appendNewTaskLi(newTaskLi)
-  event.preventDefault()
+  const btn = document.createElement("button")
+  btn.innerHTML = "x"
+  const priority = document.getElementById("priority")
+  newTaskLi.textContent = newTask.value
+  plevel = priority.value
+  
+  if (plevel === "1"){
+  newTaskLi.style.color = "#00FF00"
+  document.getElementById("tasks").appendChild(newTaskLi).appendChild(btn)
+  }
+
+  if (plevel === "2"){
+    newTaskLi.style.color = "#FFFF00"
+    document.getElementById("tasks").appendChild(newTaskLi).appendChild(btn)
+  }
+
+  else if (plevel === "3"){
+  newTaskLi.style.color = "#FF0000"
+  document.getElementById("tasks").appendChild(newTaskLi).appendChild(btn)
+  }
+
+  btn.addEventListener('click', e => 
+    e.target.parentElement.remove()
+  )
 }
 
-function appendNewTaskLi(task){
-document.getElementById("tasks").appendChild(task)
-}
