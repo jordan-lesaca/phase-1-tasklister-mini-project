@@ -3,8 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
   newTaskForm.addEventListener("submit", createNewTask)
 })
 
-
-
 function createNewTask(e){
   e.preventDefault()
   const newTask = document.getElementById("new-task-description")
@@ -13,25 +11,26 @@ function createNewTask(e){
   btn.innerHTML = "x"
   const priority = document.getElementById("priority")
   newTaskLi.textContent = newTask.value
-  plevel = priority.value
+  pLevel = priority.value
+  document.getElementById("tasks").appendChild(newTaskLi).appendChild(btn)
   
-  if (plevel === "1"){
-  newTaskLi.style.color = "#00FF00"
-  document.getElementById("tasks").appendChild(newTaskLi).appendChild(btn)
-  }
+  setTaskColor(pLevel, newTaskLi)
 
-  if (plevel === "2"){
-    newTaskLi.style.color = "#FFFF00"
-    document.getElementById("tasks").appendChild(newTaskLi).appendChild(btn)
-  }
+  listenRemove(e, btn)
+}
 
-  else if (plevel === "3"){
-  newTaskLi.style.color = "#FF0000"
-  document.getElementById("tasks").appendChild(newTaskLi).appendChild(btn)
-  }
-
+function listenRemove(e, btn){
   btn.addEventListener('click', e => 
     e.target.parentElement.remove()
   )
 }
 
+function setTaskColor(pLevel, newTaskLi){
+  if (pLevel === "1"){
+    newTaskLi.style.color = "#00FF00"
+  } else if (pLevel === "2"){
+    newTaskLi.style.color = "#FFFF00"
+  } else if(pLevel === "3"){
+    newTaskLi.style.color = "#FF0000" 
+  }
+}
